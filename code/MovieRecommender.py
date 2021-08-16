@@ -4,6 +4,7 @@ import numpy as np
 import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -59,14 +60,21 @@ class MovieRecommender:
     def get_bm25_weights(self, corpus):
 
         bm25 = BM25(corpus)
-        average_idf = sum(float(val) for val in bm25.idf.values()) / len(bm25.idf)
+        avg_idf = sum(float(val) for val in bm25.idf.values()) / len(bm25.idf)
 
         weights = []
         for doc in corpus:
-            scores = bm25.get_scores(doc, average_idf)
+            scores = bm25.get_scores(doc, avg_idf)
             weights.append(scores)
 
-        return weights        
+        return pd.DataFrame(weights)
+        
+    def get_bert_weights(self, corpus):
+        model = SentenceTransformer('bert-base-nli-mean-tokens')
+        vectors = model.encode(corpus)
+        weights = pd.DataFrame(cosine_similarity(vectors))
+        
+        return weights
     
     def search_movies_by_term(self, term='movie'):
         movies = self.df[self.title_column].values
