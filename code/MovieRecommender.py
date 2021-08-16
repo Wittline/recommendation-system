@@ -5,6 +5,7 @@ import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
+import BM25
 
 nltk.download('stopwords')
 nltk.download('punkt')
