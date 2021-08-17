@@ -1,4 +1,4 @@
-# Building an Amazon Prime content-based Movie Recommendation System
+# Building an Amazon Prime content-based Movie Recommender System
 ## TF-IDF, Cosine similarity, BM25, BERT
 
 The aim of this article is to show you how to quickly create a content-based recommendation system. When you select a movie on platforms such as Amazon Prime or Netflix you may also notice that they will always show you similar movies that may be to your liking, this document shows , explains and implements three approaches to calculate those similarities using the description of each movie, the approaches are the following:
